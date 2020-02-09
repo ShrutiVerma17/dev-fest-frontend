@@ -13,18 +13,20 @@ const Wrapper = styled.div`
   align-items: center;
   border-radius: 20px;
   background-color: #ecf0f1;
+  font-family: 'Nunito Sans', sans-serif;
   padding: 15px;
   width: 500px;
+  
 `;
 
 const NameForm = styled.select`
   cursor: pointer;
   border-radius: 10px;
   padding: 5px;
-  background-color: #bbbeff;
+  background-color: #95a5a6;
   width: 140px;
   font-family: 'Nunito Sans', sans-serif;
-  font-size: 14px;
+  font-size: 10px;
   :focus {
     outline: none;
   }
