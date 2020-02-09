@@ -335,7 +335,6 @@ function App() {
                 </div>
             </DivThree>
             </Wrap>
-            <Footer />
     </BigWrapper>
   );
 }
