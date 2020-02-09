@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 import styled from "styled-components";
-import BackgroundImage from './calendar3.jpg';
+import cal from './cal.png';
 import InputForm from './InputForm.js';
+
+import api from './api/DevFestApi.js';
 
 const Wrap = styled.div`
   color: black;
@@ -14,6 +16,10 @@ const Wrap = styled.div`
   font-family: 'Nunito Sans', sans-serif;
 `;
 
+const InputFormWrapper = styled.div`
+    font-size: 15px;
+    font-family: 'Nunito Sans', sans-serif;
+`;
 
 const NavBar = styled.div`
   background-color: white;
@@ -47,213 +53,36 @@ const Title = styled.div`
   display: inline-block;
 `;
 
-const Body = styled.div`
-  font-size: 30px;
-  float: left;
-  padding-left: 9rem;
-  padding-right: 20rem;
-  padding-top: 2rem;
-  font-weight: 700;
-  color: 	black;
-  word-spacing: 1px;
-  font-family: 'Nunito Sans', sans-serif;
-  
-  fade-in {
-    animation: fadeIn ease 1.5s;
-    -webkit-animation: fadeIn ease 1.5s;
-    -moz-animation: fadeIn ease 1.5s;
-    -o-animation: fadeIn ease 1.5s;
-    -ms-animation: fadeIn ease 1.5s;
-  }
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-moz-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-webkit-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-o-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-ms-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-`;
-
-const BodyText = styled.div`
-  font-size: 20px;
-  padding-top: 30px;
-  float: left;
-  padding-left: 9rem;
-//   padding-right: 27rem;
-  color: black;
-  font-family: 'Nunito Sans', sans-serif;
+const BodyWrapper = styled.div`
+  padding-top: 100px;
+  padding-left: 5%;
   display: flex;
-  width: 77%
   flex-direction: column;
-  fade-in {
-    animation: fadeIn ease 1.5s;
-    -webkit-animation: fadeIn ease 1.5s;
-    -moz-animation: fadeIn ease 1.5s;
-    -o-animation: fadeIn ease 1.5s;
-    -ms-animation: fadeIn ease 1.5s;
-  }
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-moz-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-webkit-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-o-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-ms-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
+  align-items: center;
 `;
 
-const BlockQuote = styled.div`
-  font-size: 20px;
-  color: black;
-  padding-top: 30px;
-  padding-left: 5rem;
-  padding-right: 15rem;
+const LoginWrapper = styled.div`
   display: flex;
-  font-family: 'Nunito Sans', sans-serif;
-
-  fade-in {
-    animation: fadeIn ease 1.5s;
-    -webkit-animation: fadeIn ease 1.5s;
-    -moz-animation: fadeIn ease 1.5s;
-    -o-animation: fadeIn ease 1.5s;
-    -ms-animation: fadeIn ease 1.5s;
-  }
-  @keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-moz-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-webkit-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-o-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-  }
-  
-  @-ms-keyframes fadeIn {
-    0% {
-      opacity:0;
-    }
-    100% {
-      opacity:1;
-    }
-
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 `;
 
-const Image = styled.div`
-padding: 30px 25px 0px 25px;
-// display: flex;
-// & > img {
-//     display: flex;
-//     height: 100px;
-//     width: auto;
-// }
+const LoginTitle = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
-const Bodytextcontainer = styled.div`
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
+const LoginButton = styled.button`
+
 `;
 
 function App() {
-    var tasks = ['hi', 'there', 'shruti is the best']
+//   api.getAllTasks().then(response => {
+//       console.log(response)
+//   });
+
+  var tasks = ['iwugbrw', 'wgobieob', 'qoegbqogbe'];
   return (
     <Wrap>
       <NavBar>
@@ -262,7 +91,15 @@ function App() {
             <a href="/AboutUs"> About Us </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="/GetStarted"> Get Started</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </NavBar>
-       <InputForm tasks = {tasks} />
+        <BodyWrapper>
+            <LoginWrapper>
+                <LoginTitle>First, log into TIMESORT with Google</LoginTitle>
+                <LoginButton>Log In with Google <img src = {cal} width = "40px" /></LoginButton>
+            </LoginWrapper>
+            <InputFormWrapper>
+                <InputForm tasks = {tasks} />
+            </InputFormWrapper>
+       </BodyWrapper>
     </Wrap>
   );
 }

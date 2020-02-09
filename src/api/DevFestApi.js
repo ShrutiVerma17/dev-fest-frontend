@@ -12,6 +12,7 @@ const getAllTasks = () => {
   axios.get(`${URL}tasks/`, config)
       .then(function (response) {
         // handle success
+        //return response;
         console.log(response);
       })
       .catch(function (error) {
