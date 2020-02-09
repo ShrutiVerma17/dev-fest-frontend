@@ -9,64 +9,66 @@ var config = {
 }
 
 const getAllTasks = () => {
-  axios.get(`${URL}tasks/`, config)
+  return new Promise((resolve, reject) => {
+    axios.get(`${URL}tasks/`, config)
       .then(function (response) {
-        // handle success
-        console.log(response);
+        resolve(response)
       })
       .catch(function (error) {
-        // handle error
-        console.log(error);
+        reject(error)
       })
+  })
 }
 
 const createTask = (taskAttributes) => {
-  config.task = taskAttributes
-  axios.post(`${URL}tasks/`, config)
-    .then((response) => {
-      console.log(response) 
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  return new Promise((resolve, reject) => {
+    config.task = taskAttributes
+    axios.post(`${URL}tasks/`, config)
+      .then((response) => {
+        resolve(response)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
 }
 
 const updateTask = (taskAttributes, taskId) => {
-  config.task = taskAttributes
-  axios.patch(`${URL}tasks/${taskId}`, config)
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
+  return new Promise((resolve, reject) => {
+    config.task = taskAttributes
+    axios.patch(`${URL}tasks/${taskId}`, config)
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
 }
 
 const getTask = (taskId) => {
-  axios.get(`${URL}tasks/${taskId}`, config)
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
+  return new Promise((resolve, reject) => {
+    axios.get(`${URL}tasks/${taskId}`, config)
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
 }
 
 
 const deleteTask = (taskId) => {
-  axios.delete(`${URL}tasks/${taskId}`, config)
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
+  return new Promise((resolve, reject) => {
+    axios.delete(`${URL}tasks/${taskId}`, config)
+      .then(function (response) {
+        resolve(response)
+      })
+      .catch(function (error) {
+        reject(error)
+      })
+  })
 }
 
 export default {
