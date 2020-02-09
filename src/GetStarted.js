@@ -135,13 +135,18 @@ const LoginTitle = styled.div`
   
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled.a`
     padding: 10px;
-    margin-left: 9rem;
     border-radius: 10px;
     background-color: #ecf0f1;
     font-size: 20px;
     font-family: 'Nunito Sans', sans-serif;
+    text-decoration: none;
+    font-style: normal!important;
+    font-weight: 500!important;
+    color: black!important;
+    position: relative;
+    margin-bottom: 25rem;
 `;
 const InputFormWrapper = styled.div`
     font-size: 15px;
@@ -308,16 +313,18 @@ function App() {
             <a href="/GetStarted"> Get Started</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </NavBar> <WrapOne>
             <LoginWrapper>
-            <fade-in> Step One: Log Into Your Google Account </fade-in>
-                <BodyText> <fade-in> This will allow us to access you Google Calendar and all the tasks that you currently have on there. Note that our algorithm will work around all the tasks you've already placed on your primary calendar. So, if there are any blocks of time that you don't want to be off-limits, just block it off with an event. </fade-in> </BodyText>
+            <fade-in>  Step One: Connect Your Google Account </fade-in>
+                <BodyText> <fade-in> This will allow us to access you Google Calendar and all the tasks that you currently have on there. Note that our algorithm will work around all the tasks you've already placed on your primary calendar. So, if there are any blocks of time that you don't want to be off-limits, just block it off with an event.
+                     </fade-in> </BodyText>
             </LoginWrapper>
-            <LoginButton>Log In with Google</LoginButton>
+            <LoginButton href = "https://devfestapi.agarciadev.com/auth/google_oauth2"> Log In with Google </LoginButton>
             <a href = "#DivTwo"> Move onto the next step! </a>    
             </WrapOne>
                 <DivTwo> <div id = 'DivTwo'> 
                 <LoginWrapper>
             <fade-in> Step Two: What are your commitments? </fade-in>
-                <BodyText> <fade-in> Use the following form to fill in all the tasks that you'd like TimeSort to schedule for you. Please input the name of the task, the deadline, and the estimated amount of time that it will take you to complete. Don't worry too much about the specifics of this data. Your schedule is not set in stone. Anytime you need to add or delete a task, feel free to do so. If the time allotted for a task comes and goes and you haven't finished, just let TimeSort know! It will update your calendar for you.  </fade-in> </BodyText>
+                <BodyText> <fade-in>  Use the following form to fill in all the tasks that you'd like TimeSort to schedule for you. Please input the name of the task, the deadline, and the estimated amount of time that it will take you to complete. Don't worry too much about the specifics of this data. Your schedule is not set in stone. Anytime you need to add or delete a task, feel free to do so. If the time allotted for a task comes and goes and you haven't finished, just let TimeSort know! It will update your calendar for you. 
+                     </fade-in> </BodyText>
             </LoginWrapper>
             <InputFormWrapper>
                 <InputForm tasks = {tasks} />

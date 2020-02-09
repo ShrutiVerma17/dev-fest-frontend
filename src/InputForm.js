@@ -4,8 +4,16 @@ import './App.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DateFormat from 'dateformat';
-
 import api from './api/DevFestApi.js';
+import { resolve } from "url";
+import { reject } from "q";
+const axios = require('axios');
+
+var config = {
+    headers:{
+        accept: 'application/json',
+    }
+}
 
 //var dateFormat = require('dateformat');
 var userTasks = [];
@@ -149,7 +157,17 @@ class InputForm extends Component {
     id = id % 101;
     if (id == 0)
         id = 17;
-    var array = {"name" : this.state.nameValue, "id" : id, "length" : this.state.timeValue, "deadline" : this.state.formattedDate};
+    
+    var timeFormatted = this.state.timeValue;
+    if ((timeFormatted * 10) % 10 == 0)
+        timeFormatted = this.state.timeValue + ":00:00";
+    else
+    {
+        var hours = ((timeFormatted * 10) - (timeFormatted * 10) % 10)/10;
+        var minutes = ((timeFormatted * 10) % 10) * 6;
+        timeFormatted = hours + ":" + minutes + ":00";
+    }
+    var array = {"name" : this.state.nameValue, "id" : id, "length" : timeFormatted , "deadline" : this.state.formattedDate};
     username = this.state.uniValue;
     userTasks.push(array);
     document.getElementById('uni').value='';
@@ -159,10 +177,18 @@ class InputForm extends Component {
   }
 
   finish() {
-      datas = {'username': username, userTasks, 'refresh_token': "efwef"};
-      var myJSON = JSON.stringify(datas);
-      console.log(myJSON);
-  }
+      username = username + "@columbia.edu";
+      console.log(username);
+      datas = {'username': username, userTasks};
+      var json = JSON.stringify(datas);
+      config.json = json;
+      axios.post('http://165.227.208.40/schedule', config)
+      .then((response) => {
+          console.log(response);
+      })
+      .catch((error )=> {
+      })
+    }
 
   render() {
     return (
