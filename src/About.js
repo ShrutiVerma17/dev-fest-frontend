@@ -53,7 +53,7 @@ const Body = styled.div`
   padding-right: 20rem;
   padding-top: 2rem;
   font-weight: 700;
-  color: 	black;
+  color: black;
   word-spacing: 1px;
   font-family: 'Nunito Sans', sans-serif;
   

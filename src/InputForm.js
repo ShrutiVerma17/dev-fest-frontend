@@ -17,7 +17,9 @@ const Wrapper = styled.div`
   background-color: #ecf0f1;
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 500;
-  padding: 15px;
+  position: relative;
+  top: 2rem;;
+  left: 9rem;
   width: 500px;
   height: auto;
   
