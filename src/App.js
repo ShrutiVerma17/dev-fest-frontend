@@ -179,7 +179,7 @@ function App() {
             <a href="/GetStarted"> Get Started</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </NavBar>
         <Body> <fade-in> Don't Waste Time Scheduling Time </fade-in> </Body>
-        <BodyText> <fade-in> Clean up your life with in automated, adaptable, and intelligent scheduling system. Give us your pile of due dates and deadlines, and we'll give you a solution. </fade-in> </BodyText>
+        <BodyText> <fade-in> Clean up your life with an automated, adaptable, and intelligent scheduling system. Give us your pile of due dates and deadlines, and we'll give you a solution. </fade-in> </BodyText>
     </Wrap>
   );
 }

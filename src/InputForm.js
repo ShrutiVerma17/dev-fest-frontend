@@ -8,7 +8,9 @@ import DateFormat from 'dateformat';
 import api from './api/DevFestApi.js';
 
 //var dateFormat = require('dateformat');
-
+var userTasks = [];
+var datas;
+var username = "";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,9 +54,7 @@ const TimeForm = styled.div`
 
 const Option = styled.option`
   cursor: pointer;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-size: 36px;
 `;
 
@@ -63,11 +63,16 @@ const Label = styled.div`
 `;
 
 const SubmitButton = styled.button`
+    display: inline-block;
     cursor: pointer;
     padding: 10px;
     margin: 10px;
     width: 100px;
     border-radius: 10px;
+`;
+
+const Buttons = styled.div`
+  display: inline-block;
 `;
 
 class InputForm extends Component {
@@ -76,6 +81,7 @@ class InputForm extends Component {
     this.state = {
       nameValue: "",
       showTypeName: false,
+      uniValue: "",
       timeValue: "",
       startDate: new Date(),
       formattedDate: ""
@@ -85,8 +91,10 @@ class InputForm extends Component {
 
     this.handleTaskChange = this.handleTaskChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleUNIChange = this.handleUNIChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
     this.submit = this.submit.bind(this);
+    this.finish = this.finish.bind(this);
   }
 
   formatDate(date) {
@@ -117,7 +125,11 @@ class InputForm extends Component {
         timeValue: event.target.value
     })
   }
-
+  handleUNIChange(event) {
+    this.setState({
+        uniValue : event.target.value
+    })
+  }
   handleDateChange = date => {
     this.setState({
       startDate: date,
@@ -129,13 +141,36 @@ class InputForm extends Component {
   submit() {
     //console.log({name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate });
     api.createTask({name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate });
+    var id = ""
+    for (var i = 0; i < (this.state.nameValue).length; i++)
+    {
+        id = (this.state.nameValue).charCodeAt(i);
+    }
+    id = id % 101;
+    if (id == 0)
+        id = 17;
+    var array = {"name" : this.state.nameValue, "id" : id, "length" : this.state.timeValue, "deadline" : this.state.formattedDate};
+    username = this.state.uniValue;
+    userTasks.push(array);
+    document.getElementById('uni').value='';
+    document.getElementById('time').value='';
     //window.location.reload(false);
     //return {name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate };
+  }
+
+  finish() {
+      datas = {'username': username, userTasks, 'refresh_token': "efwef"};
+      var myJSON = JSON.stringify(datas);
+      console.log(myJSON);
   }
 
   render() {
     return (
       <Wrapper>
+          <Label> Enter your UNI </Label>
+        <TimeForm>
+          <input type = "text" name = "uni" id = "uni" onChange = {this.handleUNIChange} />
+          </TimeForm>
         <Label>Choose an existing task, or enter in a new one</Label>
         <NameForm value={this.props.value} onChange={this.handleTaskChange}>
           {this.props.tasks.map(item => (
@@ -150,7 +185,7 @@ class InputForm extends Component {
         <TypeNameForm type = "text" name = "name" onChange = {this.handleTaskChange} show = {this.state.showTypeName} />
         <Label>How much time will this task take? (enter in hours)</Label>
         <TimeForm>
-            <input type = "text" name = "time" onChange = {this.handleTimeChange} />
+            <input type = "text" name = "time" id = "time" onChange = {this.handleTimeChange} />
         </TimeForm>
         <Label>Select the time and date your task is due</Label>
         <DatePicker 
@@ -163,7 +198,10 @@ class InputForm extends Component {
               timeCaption="time"
               dateFormat="yyyy-MM-dd h:mm aa"
         />
-        <SubmitButton onClick = {this.submit}>Submit</SubmitButton>
+        <Buttons>
+       <SubmitButton onClick = {this.submit}> Submit Task</SubmitButton>         
+        <SubmitButton onClick = {this.finish}> Finish </SubmitButton>
+        </Buttons>
       </Wrapper>
     );
   }
