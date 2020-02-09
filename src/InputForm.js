@@ -5,6 +5,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import DateFormat from 'dateformat';
 
+import api from './api/DevFestApi.js';
+
 //var dateFormat = require('dateformat');
 
 const Wrapper = styled.div`
@@ -14,48 +16,56 @@ const Wrapper = styled.div`
   border-radius: 20px;
   background-color: #ecf0f1;
   font-family: 'Nunito Sans', sans-serif;
+  font-weight: 500;
   padding: 15px;
   width: 500px;
+  height: auto;
   
 `;
 
 const NameForm = styled.select`
   cursor: pointer;
-  border-radius: 10px;
-  padding: 5px;
-  background-color: #95a5a6;
-  width: 140px;
+//   border-radius: 10px;
+//   padding: 5px;
+//   background-color: #95a5a6;
+  width: 300px;
   font-family: 'Nunito Sans', sans-serif;
   font-size: 10px;
+  padding: 10px;
   :focus {
     outline: none;
   }
 `;
 
 const TypeNameForm = styled.input`
+    cursor: pointer;
     display: ${props => (props.show ? "" : "none")};
+    margin-top: 10px;
+    width: 300px;
 `;
 
-const TimeForm = styled.div``;
+const TimeForm = styled.div`
+//   padding: 10px;
+`;
 
 const Option = styled.option`
   cursor: pointer;
-  background-color: #bbbeff;
-  border-radius: 10px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  font-size: 14px;
+  font-size: 36px;
 `;
 
 const Label = styled.div`
-  margin-bottom: 10px;
+  margin: 10px;
 `;
 
 const SubmitButton = styled.button`
+    cursor: pointer;
     padding: 10px;
     margin: 10px;
     width: 100px;
+    border-radius: 10px;
 `;
 
 class InputForm extends Component {
@@ -86,7 +96,7 @@ class InputForm extends Component {
   }
 
   handleTaskChange(event) {
-    console.log(event.target.value)
+    //console.log(event.target.value)
     if(event.target.value === "new") {
         this.setState({
             nameValue: event.target.value,
@@ -100,7 +110,7 @@ class InputForm extends Component {
   }
 
   handleTimeChange(event) {
-    console.log(event.target.value);
+    //console.log(event.target.value);
     this.setState({
         timeValue: event.target.value
     })
@@ -111,36 +121,36 @@ class InputForm extends Component {
       startDate: date,
       formattedDate: this.formatDate(date)
     });
-    console.log(this.formatDate(date));
+    //console.log(this.formatDate(date));
   };
 
   submit() {
-    console.log({name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate });
-    return {name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate };
+    //console.log({name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate });
+    api.createTask({name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate });
+    //window.location.reload(false);
+    //return {name: this.state.nameValue, estimated_duration: this.state.timeValue, due_date: this.state.formattedDate };
   }
 
   render() {
     return (
       <Wrapper>
-        <Label>Enter a Task:</Label>
+        <Label>Choose an existing task, or enter in a new one</Label>
         <NameForm value={this.props.value} onChange={this.handleTaskChange}>
-          <Option value="">Choose an existing Task, or enter in a new one:</Option>
-          <Option name="new" value="new">
-            New Task
-          </Option>
           {this.props.tasks.map(item => (
             <Option name={item} id = {item}>
               {item}
             </Option>
           ))}
+          <Option name="new" value="new">
+            New Task
+          </Option>
         </NameForm>
         <TypeNameForm type = "text" name = "name" onChange = {this.handleTaskChange} show = {this.state.showTypeName} />
-
+        <Label>How much time will this task take? (enter in hours)</Label>
         <TimeForm>
-            How much time will this task take? (Enter in Hours)
-            <div><input type = "text" name = "time" onChange = {this.handleTimeChange} /></div>
+            <input type = "text" name = "time" onChange = {this.handleTimeChange} />
         </TimeForm>
-        Select the Time and Date Your Task is due:
+        <Label>Select the time and date your task is due</Label>
         <DatePicker 
               placeholderText="Click to select a date"
               selected={this.state.startDate}
